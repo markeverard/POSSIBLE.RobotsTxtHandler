@@ -173,7 +173,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RobotsTxtData.cs" />
     <Compile Include="RobotsContentService.cs" />
-    <Compile Include="RobotsTxtHandler.cs" />
+    <Compile Include="Initialization\RobotsTxtRouteInitialisation.cs" />
+    <Compile Include="UI\Controllers\RobotsTxtController.cs" />
     <Compile Include="UI\Models\RobotsTxtViewModel.cs" />
     <Compile Include="UI\Controllers\RobotsTxtAdminController.cs" />
   </ItemGroup>
@@ -192,7 +193,6 @@
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
-	<MSBuild Projects="../buildscripts/NugetPackage.proj" Properties="TargetFrameworkVersion=$(TargetFrameworkVersion)" />
+    <MSBuild Projects="../buildscripts/NugetPackage.proj" Properties="TargetFrameworkVersion=$(TargetFrameworkVersion)" />
   </Target>
-  
 </Project>

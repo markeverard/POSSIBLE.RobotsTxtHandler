@@ -10,9 +10,7 @@ namespace POSSIBLE.RobotsTxtHandler
     {
         public void ProcessRequest(HttpContext context)
         {
-            context.Response.ContentType = "text/plain";
-            var service = new RobotsContentService();
-            context.Response.Write(service.GetRobotsContent());
+            
         }
 
         public bool IsReusable

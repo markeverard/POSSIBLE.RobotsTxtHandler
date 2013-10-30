@@ -1,12 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Web.Mvc;
-using EPiServer.Core;
 using EPiServer.Framework.Configuration;
-using EPiServer.Framework.Localization;
 using EPiServer.PlugIn;
-using EPiServer.UI.Edit.PageCompare.Core.Providers;
 using POSSIBLE.RobotsTxtHandler.UI.Models;
 
 namespace POSSIBLE.RobotsTxtHandler.UI.Controllers
@@ -15,7 +11,7 @@ namespace POSSIBLE.RobotsTxtHandler.UI.Controllers
         Area = PlugInArea.AdminMenu,
         DisplayName = "Manage robots.txt content",
         Description = "Tool to manage the robots.txt",
-        Url = "~/episerver/POSSIBLE.RobotsTxtHandler/RobotsTxtAdmin"
+        Url = "~/modules/POSSIBLE.RobotsTxtHandler/RobotsTxtAdmin"
     )]
    [Authorize(Roles = "CmsAdmins")]
     public class RobotsTxtAdminController : Controller
