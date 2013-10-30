@@ -1,8 +1,8 @@
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 [Bb]in/
 [Oo]bj/
-Package-Stage/content
-Package-Stage/lib
+package-stage/content/
+package-stage/lib/
 
 # mstest test results
 TestResults

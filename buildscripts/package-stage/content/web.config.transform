@@ -1,0 +1,17 @@
+<configuration>
+	<system.webServer>
+		<handlers>
+			<add name="RobotsTxt" path="robots.txt" verb="*" type="POSSIBLE.RobotsTxtHandler.RobotsTxtHandler, POSSIBLE.RobotsTxtHandler" />
+		</handlers>
+	</system.webServer>
+	
+	<episerver.shell>
+    <publicModules>
+      <add name="POSSIBLE.RobotsTxtHandler">
+        <assemblies>
+          <add assembly="POSSIBLE.RobotsTxtHandler" />
+        </assemblies>
+      </add>
+    </publicModules>
+	</episerver.shell>
+</configuration>
