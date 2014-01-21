@@ -5,6 +5,9 @@ using System.Web;
 using EPiServer;
 using EPiServer.Data.Dynamic;
 using EPiServer.Framework.Configuration;
+using EPiServer.ServiceLocation;
+using EPiServer.Web;
+
 using log4net;
 
 namespace POSSIBLE.RobotsTxtHandler
@@ -18,20 +21,18 @@ namespace POSSIBLE.RobotsTxtHandler
             get
             {
                 // Look for a specific host name mapping for the current host name in the config
-                var hostLookup = from HostNameCollection hosts in EPiServerFrameworkSection.Instance.SiteHostMapping
-                                 from HostNameElement host in hosts
-                                 where host.Name == HttpContext.Current.Request.Url.Host
-                                 select host;
-                var hostLookUpArray = hostLookup.ToArray();
 
-                if (hostLookUpArray.Any())
+                var sdr = ServiceLocator.Current.GetInstance<SiteDefinitionRepository>();
+                var hostLookUpArray = sdr.List().SelectMany(sd => sd.Hosts, (sd, host) => host.Name).ToArray();
+
+                if (hostLookUpArray.Contains(HttpContext.Current.Request.Url.Host))
                 {
                     // If the host is explicitly listed then return the key for the siteId and host
-                    return GetSiteKey(EPiServer.Configuration.Settings.Instance.Parent.SiteId, hostLookUpArray[0].Name);
+                    return GetSiteKey(SiteDefinition.Current.Name, HttpContext.Current.Request.Url.Host);
                 }
                 
                 // Otherwise this is the default "*" mapping of the site
-                return GetSiteKey(EPiServer.Configuration.Settings.Instance.Parent.SiteId, "*");
+                return GetSiteKey(SiteDefinition.Current.Name, "*");
             }
         }
 
