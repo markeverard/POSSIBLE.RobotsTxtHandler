@@ -3,6 +3,9 @@ using System.Linq;
 using System.Web.Mvc;
 using EPiServer.Framework.Configuration;
 using EPiServer.PlugIn;
+using EPiServer.ServiceLocation;
+using EPiServer.Web;
+
 using POSSIBLE.RobotsTxtHandler.UI.Models;
 
 namespace POSSIBLE.RobotsTxtHandler.UI.Controllers
@@ -67,13 +70,14 @@ namespace POSSIBLE.RobotsTxtHandler.UI.Controllers
 
          private List<SelectListItem> GetHostsSelectListItems()
          {
-             IEnumerable<SelectListItem> allHosts =
-                 from HostNameCollection hosts in EPiServerFrameworkSection.Instance.SiteHostMapping
-                 from HostNameElement host in hosts
-                 orderby hosts.SiteId, host.Name
-                 select new SelectListItem { Value = RobotsService.GetSiteKey(hosts.SiteId, host.Name), Text = RobotsService.GetSiteKey(hosts.SiteId, host.Name) };
+             var sdr = ServiceLocator.Current.GetInstance<SiteDefinitionRepository>();
+             return sdr.List().SelectMany(d => d.Hosts, (s, h) => 
+                 new SelectListItem
+                     {
+                         Value = RobotsService.GetSiteKey(s.Name, h.Name), 
+                         Text = RobotsService.GetSiteKey(s.Name, h.Name)
+                     }).ToList();
 
-             return allHosts.ToList();
          }
     }
 }
