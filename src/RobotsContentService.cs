@@ -4,17 +4,15 @@ using System.Text;
 using System.Web;
 using EPiServer;
 using EPiServer.Data.Dynamic;
-using EPiServer.Framework.Configuration;
+using EPiServer.Logging;
 using EPiServer.ServiceLocation;
 using EPiServer.Web;
-
-using log4net;
 
 namespace POSSIBLE.RobotsTxtHandler
 {
     public class RobotsContentService : IRobotsContentService
     {
-        private static ILog logger = LogManager.GetLogger(typeof(RobotsContentService));
+        private static ILogger logger = LogManager.GetLogger(typeof(RobotsContentService));
 
         private string CurrentSiteKey
         {
