@@ -20,7 +20,7 @@ namespace POSSIBLE.RobotsTxtHandler
             {
                 // Look for a specific host name mapping for the current host name in the config
 
-                var sdr = ServiceLocator.Current.GetInstance<SiteDefinitionRepository>();
+                var sdr = ServiceLocator.Current.GetInstance<ISiteDefinitionRepository>();
                 var hostLookUpArray = sdr.List().SelectMany(sd => sd.Hosts, (sd, host) => host.Name).ToArray();
 
                 if (hostLookUpArray.Contains(HttpContext.Current.Request.Url.Host))
@@ -66,7 +66,7 @@ namespace POSSIBLE.RobotsTxtHandler
 
                     // Ensure we cache the result using the EPiServer cache manager to ensure 
                     // everything works in a load balanced/mirrored environement
-                    CacheManager.Add(GetCacheKey(robotsKey), result);
+                    CacheManager.Insert(GetCacheKey(robotsKey), result);
                     return result.RobotsTxtContent;
                 }
             }

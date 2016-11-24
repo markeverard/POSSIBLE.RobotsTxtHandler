@@ -70,7 +70,7 @@ namespace POSSIBLE.RobotsTxtHandler.UI.Controllers
 
          private List<SelectListItem> GetHostsSelectListItems()
          {
-             var sdr = ServiceLocator.Current.GetInstance<SiteDefinitionRepository>();
+             var sdr = ServiceLocator.Current.GetInstance<ISiteDefinitionRepository>();
              return sdr.List().SelectMany(d => d.Hosts, (s, h) => 
                  new SelectListItem
                      {
