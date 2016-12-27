@@ -4,7 +4,9 @@ using EPiServer.Core.Transfer;
 using EPiServer.Data;
 using EPiServer.Data.Dynamic;
 using EPiServer.Enterprise;
+using EPiServer.Enterprise.Transfer;
 using EPiServer.Framework;
+using EPiServer.ServiceLocation;
 
 namespace POSSIBLE.RobotsTxtHandler.Initialization
 {
@@ -14,9 +16,10 @@ namespace POSSIBLE.RobotsTxtHandler.Initialization
     [InitializableModule, ModuleDependency(typeof(DataInitialization)), ModuleDependency(typeof(DynamicDataTransferHandler))]
     public class RobotsContentTransferInit : IInitializableModule
     {
+        private Injected<IDataExportEvents> DataExportEvents { get; set; }
         public void Initialize(EPiServer.Framework.Initialization.InitializationEngine context)
         {
-            DataExporter.Exporting += this.DataExporter_Exporting;
+            DataExportEvents.Service.ContentExporting += this.DataExporter_Exporting;
         }
 
         public void Preload(string[] parameters)
@@ -25,20 +28,24 @@ namespace POSSIBLE.RobotsTxtHandler.Initialization
 
         public void Uninitialize(EPiServer.Framework.Initialization.InitializationEngine context)
         {
-            DataExporter.Exporting -= this.DataExporter_Exporting;
+            DataExportEvents.Service.ContentExporting -= this.DataExporter_Exporting;
         }
 
-        private void DataExporter_Exporting(object sender, EventArgs e)
+        private void DataExporter_Exporting(ITransferContext transferContext, ContentExportingEventArgs e)
         {
-            DataExporter exporter = sender as DataExporter;
-            if (exporter.TransferType == TypeOfTransfer.MirroringExporting)
+            var exporter = transferContext as ITransferHandlerContext;
+            if (exporter != null && exporter.TransferType == TypeOfTransfer.MirroringExporting)
             {
-                var ddsHandler = (sender as DataExporter).TransferHandlers.Single(p => p.GetType() == typeof(DynamicDataTransferHandler)) as DynamicDataTransferHandler;
+                var ddsHandler = exporter.TransferHandlers.Single(p => p.GetType() == typeof(DynamicDataTransferHandler)) as DynamicDataTransferHandler;
 
                 var store = typeof(RobotsTxtData).GetStore();
-                var externalID = store.GetIdentity().ExternalId;
+                var externalId = store.GetIdentity().ExternalId;
                 var storeName = store.Name;
-                ddsHandler.AddToExport(externalID, storeName);
+
+                if (ddsHandler != null)
+                {
+                    ddsHandler.AddToExport(externalId, storeName);
+                }
             }
         }
     }
