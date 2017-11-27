@@ -2,17 +2,18 @@
 <package>
   <metadata>
     <id>POSSIBLE.RobotsTxtHandler</id>
-    <version>3.0.0.0</version>
+    <version>11.0.0.0</version>
     <authors>mark.everard,marcin.wrzyciel</authors>
     <projectUrl>https://github.com/markeverard/POSSIBLE.RobotsTxtHandler</projectUrl>
     <iconUrl>http://www.markeverard.com/wp-content/uploads/2013/03/POSSIBLE_logo_white.jpg</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>The POSSIBLE RobotsTxtHandler is a fork of the EPiRobots plugin upgraded to work with CMS 10. It is an EPiServer plug in that handles the delivery and modification of the robots.txt file.</description>
-    <copyright>Copyright 2016</copyright>
-    <summary>The POSSIBLE RobotsTxtHandler is a fork of the EPiRobots plugin upgraded to work with CMS 10. It is an EPiServer plug in that handles the delivery and modification of the robots.txt file.</summary>
+    <description>The POSSIBLE RobotsTxtHandler is a fork of the EPiRobots plugin upgraded to work with CMS 11. It is an EPiServer plug in that handles the delivery and modification of the robots.txt file.</description>
+    <copyright>Copyright 2017</copyright>
+    <summary>The POSSIBLE RobotsTxtHandler is a fork of the EPiRobots plugin upgraded to work with CMS 11. It is an EPiServer plug in that handles the delivery and modification of the robots.txt file.</summary>
     <dependencies>
-      <dependency id="EPiServer.Framework" version="[10.0.0,11.0.0)" />
-      <dependency id="EPiServer.CMS.Core" version="[10.0.0,11.0.0)" />
+      <dependency id="EPiServer.Framework" version="[11.1.0,12.0.0)" />
+      <dependency id="EPiServer.CMS.Core" version="[11.1.0,12.0.0)" />
+      <dependency id="EPiServer.Framework.AspNet" version="[11.1.0,12.0.0)" />
     </dependencies>
   </metadata>
 </package>
