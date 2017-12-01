@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>POSSIBLE.RobotsTxtHandler</id>
-    <version>11.0.0.0</version>
+    <version>4.0.0.0</version>
     <authors>mark.everard,marcin.wrzyciel</authors>
     <projectUrl>https://github.com/markeverard/POSSIBLE.RobotsTxtHandler</projectUrl>
     <iconUrl>http://www.markeverard.com/wp-content/uploads/2013/03/POSSIBLE_logo_white.jpg</iconUrl>
