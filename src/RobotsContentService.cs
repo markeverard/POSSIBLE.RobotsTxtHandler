@@ -23,10 +23,16 @@ namespace POSSIBLE.RobotsTxtHandler
                 var sdr = ServiceLocator.Current.GetInstance<ISiteDefinitionRepository>();
                 var hostLookUpArray = sdr.List().SelectMany(sd => sd.Hosts, (sd, host) => host.Name).ToArray();
 
-                if (hostLookUpArray.Contains(HttpContext.Current.Request.Url.Host))
+               if (hostLookUpArray.Contains(HttpContext.Current.Request.Url.Host))
                 {
                     // If the host is explicitly listed then return the key for the siteId and host
                     return GetSiteKey(SiteDefinition.Current.Name, HttpContext.Current.Request.Url.Host);
+                }
+                // On development environment, it might be necessary to consider the port number 
+                else if (hostLookUpArray.Contains(HttpContext.Current.Request.Url.Authority)) 
+                {
+                    // If the host is explicitly listed then return the key for the siteId and host
+                    return GetSiteKey(SiteDefinition.Current.Name, HttpContext.Current.Request.Url.Authority);
                 }
                 
                 // Otherwise this is the default "*" mapping of the site
